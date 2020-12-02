@@ -3,6 +3,16 @@ package _02_Ayrray_Method._01_practice;
 import java.util.Scanner;
 
 public class ExchangeTemperature {
+
+    public static double celsiusToFahrenheit(double celsius) {
+        double fahrenheit = (9.0 / 5) * celsius + 32;
+        return fahrenheit;
+    }
+    public static double fahrenheitToCelsius(double fahrenheit) {
+        double celsius = (5.0 / 9) * (fahrenheit - 32);
+        return celsius;
+    }
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         double fahrenheit;
@@ -34,12 +44,5 @@ public class ExchangeTemperature {
         } while (choice != 0);
 
     }
-    public static double celsiusToFahrenheit(double celsius) {
-        double fahrenheit = (9.0 / 5) * celsius + 32;
-        return fahrenheit;
-    }
-    public static double fahrenheitToCelsius(double fahrenheit) {
-        double celsius = (5.0 / 9) * (fahrenheit - 32);
-        return celsius;
-    }
+
 }
