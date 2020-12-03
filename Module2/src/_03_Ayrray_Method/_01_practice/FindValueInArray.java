@@ -1,4 +1,4 @@
-package _02_Ayrray_Method._01_practice;
+package _03_Ayrray_Method._01_practice;
 
 import java.util.Scanner;
 

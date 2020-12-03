@@ -8,7 +8,7 @@ public class FindMax2D {
 
         System.out.print("Enter the row number of matrix: ");
         int row_size = input.nextInt();
-        System.out.print("Enter the collumg number of matrix: ");
+        System.out.print("Enter the col number of matrix: ");
         int col_size = input.nextInt();
 
         int[][] array = new int[row_size][col_size];
