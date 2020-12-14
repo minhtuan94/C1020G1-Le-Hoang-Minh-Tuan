@@ -1,4 +1,4 @@
-package _06_inheritance.test._01_exercise;
+package _07_abstractclass_interface._02_exercise.colorable;
 
 public class Circle extends Shape {
     private double radius = 1.0;
@@ -38,5 +38,4 @@ public class Circle extends Shape {
                 + ", which is a subclass of "
                 + super.toString();
     }
-
 }

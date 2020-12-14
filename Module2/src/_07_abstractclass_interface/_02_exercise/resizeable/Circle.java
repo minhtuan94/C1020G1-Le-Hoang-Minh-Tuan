@@ -1,6 +1,10 @@
-package _06_inheritance.test._01_exercise;
+package _07_abstractclass_interface._02_exercise.resizeable;
 
-public class Circle extends Shape {
+import _06_inheritance.test._01_exercise.Shape;
+
+import java.util.Random;
+
+public class Circle extends Shape implements Resizeable{
     private double radius = 1.0;
 
     public Circle() {
@@ -39,4 +43,12 @@ public class Circle extends Shape {
                 + super.toString();
     }
 
+    @Override
+    public void resize(double percent) {
+        System.out.println("Trước khi tăng kích thước của Circle: "+percent);
+        Random rnd = new Random();
+        int x = 1 + rnd.nextInt(100);
+        percent += x;
+        System.out.println("Sau khi tăng kích thước của Cirle: "+percent);
+    }
 }
