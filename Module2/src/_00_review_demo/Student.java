@@ -1,4 +1,4 @@
-package _00_review;
+package _00_review_demo;
 
 public class Student implements Comparable<Student> {
     private String name;

@@ -1,4 +1,4 @@
-package _00_review;
+package _00_review_demo;
 
 public class Demo1 {
     public static void main(String[] args) {
