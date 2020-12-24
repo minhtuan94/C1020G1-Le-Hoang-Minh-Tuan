@@ -29,21 +29,21 @@ public class ProductManager {
         System.out.println("Nhập mã cần sửa");
         int id = Integer.parseInt(scanner.nextLine());
 
-        for (int i = 0; i < products.size(); i++) {
-            if (id == products.get(i).getId()) {
+        for (Product value : products) {
+            if (id == value.getId()) {
 
                 System.out.println("Nhập mã mới");
                 int newID = scanner.nextInt();
-                products.get(i).setId(newID);
+                value.setId(newID);
 
                 System.out.println("Nhập tên mới");
                 scanner.nextLine();
                 String names = scanner.nextLine();
-                products.get(i).setNames(names);
+                value.setNames(names);
 
                 System.out.println("Nhập giá mới");
                 double price = scanner.nextDouble();
-                products.get(i).setPrice(price);
+                value.setPrice(price);
             }
 //            System.out.println(products.get(i).getId());
         }
