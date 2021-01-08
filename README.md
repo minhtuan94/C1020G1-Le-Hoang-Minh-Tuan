@@ -1,1 +1,0 @@
-# C1020G1-Le-Hoang-Minh-Tuan
