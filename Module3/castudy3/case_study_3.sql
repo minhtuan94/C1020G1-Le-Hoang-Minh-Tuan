@@ -42,3 +42,46 @@ select distinct khachhang.hoten from khachhang;
 select khachhang.hoten from khachhang group by khachhang.hoten;
 -- cách 3
 select khachhang.hoten from khachhang union select khachhang.hoten from khachhang;
+
+-- 9.Thực hiện thống kê doanh thu theo tháng, nghĩa là tương ứng với mỗi tháng trong năm 2019 thì sẽ có bao nhiêu khách hàng thực hiện đặt phòng.
+select temp.month, count(month(hopdong.ngaylamhopdong))as sokhachhangdangki, sum(hopdong.tongtien) as tong_tien from
+(select 1 as month
+union select 2 as month
+union select 3 as month
+union select 4 as month
+union select 5 as month
+union select 6 as month
+union select 7 as month
+union select 8 as month
+union select 9 as month
+union select 10 as month
+union select 11 as month
+union select 12 as month) as temp
+left join hopdong on month(hopdong.ngaylamhopdong)=temp.month
+where year(hopdong.ngaylamhopdong)='2020' or month(hopdong.ngaylamhopdong) is null
+group by temp.month;
+
+-- 10.Hiển thị thông tin tương ứng với từng Hợp đồng thì đã sử dụng bao nhiêu Dịch vụ đi kèm. 
+-- Kết quả hiển thị bao gồm IDHopDong, NgayLamHopDong, NgayKetthuc, TienDatCoc, SoLuongDichVuDiKem 
+-- (được tính dựa trên việc count các IDHopDongChiTiet).
+select hopdong.id_hopdong, hopdong.ngaylamhopdong,hopdong.ngayketthuc,hopdong.tiendatcoc,count(hopdongchitiet.id_dichvudikem) as soluongdichvudikem
+from hopdong inner join hopdongchitiet on hopdong.id_hopdong=hopdongchitiet.id_hopdong group by hopdong.id_hopdong;
+-- 11.	Hiển thị thông tin các Dịch vụ đi kèm đã được sử dụng bởi những Khách hàng có TenLoaiKhachHang là “Diamond” và 
+-- có địa chỉ là “Vinh” hoặc “Quảng Ngãi”.
+select dichvudikem.tendichvudikem,dichvudikem.gia,dichvudikem.donvi from hopdong
+inner join hopdongchitiet on hopdong.id_hopdong=hopdongchitiet.id_hopdong
+inner join dichvudikem on hopdongchitiet.id_dichvudikem=dichvudikem.id_dichvudikem
+inner join khachhang on khachhang.id_khachhang=hopdong.id_khachhang
+inner join loaikhach on khachhang.id_loaikhach=loaikhach.id_loaikhach
+where loaikhach.ten_loaikhach='Diamond' and khachhang.dia_chi in ('Quang Tri','Da Nang');
+-- 12.	Hiển thị thông tin IDHopDong, TenNhanVien, TenKhachHang, SoDienThoaiKhachHang, TenDichVu, SoLuongDichVuDikem 
+-- (được tính dựa trên tổng Hợp đồng chi tiết), TienDatCoc của tất cả các dịch vụ đã từng được khách hàng đặt vào 3 tháng cuối năm 2019 
+-- nhưng chưa từng được khách hàng đặt vào 6 tháng đầu năm 2019.
+select hopdong.id_hopdong, hopdong.tongtien,hopdong.tiendatcoc,nhanvien.ho_ten,khachhang.hoten,khachhang.sodienthoai,dichvu.tendichvu,
+count(hopdongchitiet.id_dichvudikem) as solansudung from hopdong
+inner join nhanvien on hopdong.id_nhanvien= nhanvien.id_nhanvien
+inner join khachhang on hopdong.id_khachhang = khachhang.id_khachhang
+inner join dichvu on dichvu.id_dichvu=hopdong.id_dichvu
+inner join hopdongchitiet on hopdong.id_hopdong=hopdongchitiet.id_hopdong
+where not exists(select hopdong.id_hopdong where hopdong.ngaylamhopdong between '2019-01-01' and '2019-06-31')
+and exists (select hopdong.id_hopdong where hopdong.ngaylamhopdong between '2019-09-01' and '2019-12-31');

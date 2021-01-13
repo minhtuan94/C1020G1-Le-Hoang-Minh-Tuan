@@ -88,6 +88,9 @@ values
 (11, 5 , 7, 2 , '2020/12/03', '2021/04/03', 10000000, 123123121),
 (12, 6 , 7, 3 , '2020/09/03', '2021/08/03', 10000000, 123123121),
 (13, 6 , 8, 3 , '2020/09/03', '2021/08/03', 10000000, 123123121);
+INSERT INTO `furama_resort_management`.`hopdong` (`id_hopdong`, `ngaylamhopdong`) VALUES ('14', '2021-07-08');
+INSERT INTO `furama_resort_management`.`hopdong` (`id_hopdong`, `ngaylamhopdong`) VALUES ('15', '2021-03-04');
+
 
 insert into hopdongchitiet
 values
