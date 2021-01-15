@@ -85,3 +85,36 @@ inner join dichvu on dichvu.id_dichvu=hopdong.id_dichvu
 inner join hopdongchitiet on hopdong.id_hopdong=hopdongchitiet.id_hopdong
 where not exists(select hopdong.id_hopdong where hopdong.ngaylamhopdong between '2019-01-01' and '2019-06-31')
 and exists (select hopdong.id_hopdong where hopdong.ngaylamhopdong between '2019-09-01' and '2019-12-31');
+-- 13.	Hiển thị thông tin các Dịch vụ đi kèm được sử dụng nhiều nhất bởi các Khách hàng đã đặt phòng. 
+-- (Lưu ý là có thể có nhiều dịch vụ có số lần sử dụng nhiều như nhau).
+create temporary table temp
+select dichvudikem.tendichvudikem as ten_dich_vu_di_kem,count(hopdongchitiet.id_dichvudikem) as solansudung from hopdongchitiet
+inner join dichvudikem on dichvudikem.id_dichvudikem=hopdongchitiet.id_dichvudikem
+group by dichvudikem.tendichvudikem;
+select * from temp;
+
+create temporary table temp1
+select max(temp.solansudung) as maxsolansudung from temp;
+select * from temp1;
+
+select temp.ten_dich_vu_di_kem,temp.solansudung from temp inner join temp1 on temp.solansudung=temp1.maxsolansudung;
+drop temporary table temp;
+drop temporary table temp1;
+
+-- 14.	Hiển thị thông tin tất cả các Dịch vụ đi kèm chỉ mới được sử dụng một lần duy nhất. 
+-- Thông tin hiển thị bao gồm IDHopDong, TenLoaiDichVu, TenDichVuDiKem, SoLanSuDung.
+select hopdong.id_hopdong,loaidichvu.tenloaidichvu,dichvudikem.tendichvudikem,count(hopdongchitiet.id_dichvudikem) as solansudung
+from hopdong inner join dichvu on dichvu.id_dichvu=hopdong.id_dichvu
+inner join loaidichvu on loaidichvu.id_loaidichvu=dichvu.id_loaidichvu
+inner join hopdongchitiet on hopdongchitiet.id_hopdong = hopdong.id_hopdong
+inner join dichvudikem on dichvudikem.id_dichvudikem= hopdongchitiet.id_dichvudikem
+group by(dichvudikem.tendichvudikem) having solansudung=1;
+-- 15.	Hiển thi thông tin của tất cả nhân viên bao gồm IDNhanVien, HoTen, TrinhDo, TenBoPhan, SoDienThoai, DiaChi mới chỉ lập được 
+-- tối đa 3 hợp đồng từ năm 2018 đến 2019.
+select nhanvien.id_nhanvien,nhanvien.ho_ten,nhanvien.sodienthoai,nhanvien.diachi,trinhdo.trinhdo,bophan.ten_bophan,count(hopdong.id_nhanvien) as solantaohopdong
+from nhanvien inner join trinhdo on trinhdo.id_trinhdo=nhanvien.id_trinhdo
+inner join bophan on bophan.id_bophan= nhanvien.id_bophan
+inner join hopdong on hopdong.id_nhanvien=nhanvien.id_nhanvien
+where hopdong.ngaylamhopdong between '2018-01-01' and '2019-12-31'
+group by nhanvien.ho_ten
+having solantaohopdong<4;
