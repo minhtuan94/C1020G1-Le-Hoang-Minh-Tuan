@@ -79,9 +79,11 @@ CREATE TABLE dichvu (
     id_loaidichvu INT,
     trangthai VARCHAR(45),
     FOREIGN KEY (id_kieuthue)
-        REFERENCES kieuthue (id_kieuthue),
+        REFERENCES kieuthue (id_kieuthue)
+        on delete cascade,
     FOREIGN KEY (id_loaidichvu)
         REFERENCES loaidichvu (id_loaidichvu)
+        on delete cascade
 );
 
 CREATE TABLE hopdong (
@@ -94,11 +96,14 @@ CREATE TABLE hopdong (
     tiendatcoc INT,
     tongtien INT,
     FOREIGN KEY (id_nhanvien)
-        REFERENCES nhanvien (id_nhanvien),
+        REFERENCES nhanvien (id_nhanvien)
+        on delete cascade,
     FOREIGN KEY (id_khachhang)
-        REFERENCES khachhang (id_khachhang),
+        REFERENCES khachhang (id_khachhang)
+        on delete cascade,
     FOREIGN KEY (id_dichvu)
         REFERENCES dichvu (id_dichvu)
+        on delete cascade
 );
 
 CREATE TABLE dichvudikem (
@@ -115,9 +120,11 @@ CREATE TABLE hopdongchitiet (
     id_dichvudikem INT,
     soluong INT,
     FOREIGN KEY (id_hopdong)
-        REFERENCES hopdong (id_hopdong),
+        REFERENCES hopdong (id_hopdong)
+        on delete cascade,
     FOREIGN KEY (id_dichvudikem)
         REFERENCES dichvudikem (id_dichvudikem)
+		on delete cascade
 );
 
 
