@@ -57,8 +57,8 @@
                 <td><c:out value="${user.email}"/></td>
                 <td><c:out value="${user.country}"/></td>
                 <td>
-                    <a href="/users?action=edit&id=${user.id}"><img width="15px" src="x-button.png" alt="ưer"></a>
-                    <a href="/users?action=delete&id=${user.id}"><img src="x-button.png" alt="2ưer"></a>
+                    <a href="/users?action=edit&id=${user.id}"><img width= src="x-button.png" alt="1"></a>
+                    <a href="/users?action=delete&id=${user.id}"><img src="x-button.png" alt="2"></a>
                 </td>
             </tr>
         </c:forEach>
