@@ -1,12 +1,17 @@
 package com.example.controller;
 
+import com.example.service.DictionaryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+
 public class TranslateController {
+    @Autowired
+    private DictionaryService dictionaryService;
     @GetMapping("/")
     public String showTrans() {
         return "/translate";
@@ -14,25 +19,9 @@ public class TranslateController {
 
     @GetMapping("/showTrans")
     public String translate(@RequestParam String eng, Model model) {
-        String vn;
-        switch (eng) {
-            case "person":
-                vn = "con người";
-                break;
-            case "dog":
-                vn = "con chó";
-                break;
-            case "pig":
-                vn = "con heo";
-                break;
-            case "house":
-                vn = "căn nhà";
-                break;
-            default:
-                vn = "Not Found";
-                break;
-        }
-        model.addAttribute("vn", vn);
-        return "/translate";
+       String result = dictionaryService.search(eng);
+       model.addAttribute("search",eng);
+       model.addAttribute("result",result);
+       return "/translate";
     }
 }

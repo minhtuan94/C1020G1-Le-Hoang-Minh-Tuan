@@ -12,9 +12,9 @@
 </head>
 <body>
 <form action="/showTrans">
-    <input type="text" name="eng">
+    <input type="text" name="eng" value="${search}">
     <input type="submit" value="Translate">
 </form>
-<p>Result: ${vn}</p>
+<p>${result}</p>
 </body>
 </html>
