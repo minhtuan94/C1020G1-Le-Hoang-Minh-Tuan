@@ -13,8 +13,8 @@
 <body>
 <h1>Calculator</h1>
 <form action="/calculator" method="post">
-    <input type="number" name="num1">
-    <input type="number" name="num2"><br>
+    <input type="number" name="a">
+    <input type="number" name="b"><br>
     <input type="submit" name="calc" value="Addition(+)">
     <input type="submit" name="calc" value="Subtraction(-)">
     <input type="submit" name="calc" value="Multiplication(X)">
