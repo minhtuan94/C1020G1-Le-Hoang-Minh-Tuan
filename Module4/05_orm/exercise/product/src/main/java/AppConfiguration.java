@@ -1,5 +1,6 @@
 import com.example.service.ProductService;
-import com.example.service.impl.HibernateCustomerServiceImpl;
+import com.example.repository.ipml.ProductRepositoryImpl;
+import com.example.service.impl.ProductServiceImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -30,7 +31,7 @@ public class AppConfiguration extends WebMvcConfigurerAdapter implements Applica
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(applicationContext);
-        templateResolver.setPrefix("/WEB-INF/views");
+        templateResolver.setPrefix("/WEB-INF/views/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
         templateResolver.setCharacterEncoding("UTF-8");
@@ -53,8 +54,7 @@ public class AppConfiguration extends WebMvcConfigurerAdapter implements Applica
     }
 
     @Bean
-    public ProductService productService(){
-        return new  HibernateCustomerServiceImpl();
+    public ProductService productService() {
+        return new ProductServiceImpl();
     }
-
 }

@@ -11,9 +11,8 @@ public interface ProductService {
 
     Product findById(int id);
 
-    Product save(Product product);
+    void save(Product product);
 
-    boolean exists(int id);
 
     void delete(int id);
 }

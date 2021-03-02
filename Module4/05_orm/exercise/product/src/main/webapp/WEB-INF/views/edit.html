@@ -9,20 +9,23 @@
     </a>
 </p>
 <div id="form">
-    <form action="#" th:action="@{/product/update}" th:object="${product}"
-          method="POST" novalidate="novalidate">
-        <input type="hidden" th:field="*{id}"/>
+    <form action="#" th:action="@{/product/save}" th:object="${product}"
+          method="POST">
         <div>
-            <label>Name</label>
-            <input type="text" th:field="*{name}"/>
+            <label>Id</label>
+            <input type="text" readonly th:field="*{id}"/>
         </div>
         <div>
-            <label>price</label>
-            <input type="text" th:field="*{price}"/>
+            <label>Name</label>
+            <input type="text" required th:field="*{name}"/>
+        </div>
+        <div>
+            <label>Price</label>
+            <input type="text" required th:field="*{price}"/>
         </div>
         <div>
             <label>Date</label>
-            <input type="text" th:field="*{date}"/>
+            <input type="text" required th:field="*{date}"/>
         </div>
         <input type="submit" value="Modify">
     </form>
