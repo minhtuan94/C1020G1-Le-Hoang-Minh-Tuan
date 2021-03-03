@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    </head>
+<body style="background-color: aliceblue">
+<nav class="navbar navbar-light bg-light justify-content-between">
+    <a class="btn btn-primary btn-sm" th:href="@{/create}">ADD NEW BLOG</a>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
+<div class="container">
+<form th:action="@{/}" method="get">
+    <table class="table table-sm">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Category</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <th:block th:each="blog :${blogTitle}">
+            <tr>
+                <td th:text="*{blog.id}"></td>
+                <td th:text="*{blog.title}"></td>
+                <td th:text="*{blog.content}"></td>
+                <td th:text="*{blog.category.getCategory()}"></td>
+                <td >
+                    <a th:href="@{/{id}/edit(id=${blog.id})} " class="btn btn-success">Edit </a>
+                </td>
+                <td>
+                    <a data-toggle="modal" data-target="#modalDelete"
+                       th:data-id="${blog.getId()}" th:data-name="${blog.title}"
+                       class="btn btn-warning">Delete</a>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+
+    </table>
+
+</form>
+<br>
+<br>
+<div style="text-align: center">
+<span th:if="${blogTitle.hasPrevious()}">
+    <a class="btn btn-success" th:href="@{/(page=${blogTitle.number - 1},keyword = ${keywordOld})}">Previous</a>
+</span>
+    <th:block th:each="i: ${#numbers.sequence(0, blogTitle.totalPages - 1)}">
+        <span th:if="${blogTitle.number == i}" class="selected">[[${i}+1]]</span>
+        <span th:unless="${blogTitle.number == i}">
+         <a class="btn btn-info" th:href="@{/(page=${i},keyword = ${keywordOld})}">[[${i}+1]]</a>
+    </span>
+    </th:block>
+    <span th:if="${blogTitle.hasNext()}">
+    <a class="btn btn-success" th:href="@{/(page=${blogTitle.number+1},keyword = ${keywordOld})}">Next</a>
+</span>
+</div>
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Delete BLog</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form th:action="@{/delete}" method="get">
+                <input type="hidden" id="deleteId" name="id">
+                <div class="modal-body">
+                    <span id="modalMessage"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Delete anyway</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+<script>
+    $(".delete").click(function () {
+        let id = $(this).attr("data-id");
+        let name = $(this).attr("data-name");
+        console.log("ID can xoa: " + id);
+
+        $("#deleteId").val(id);
+        $("#modalMessage").text("Do you want to delete " + name);
+
+
+        $("#modelId").modal('show');
+    })
+</script>
+</body>
+</html>

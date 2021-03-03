@@ -2,7 +2,7 @@ package com.example.controller;
 
 import com.example.model.Customer;
 import com.example.service.CustomerService;
-import com.example.service.CustomerServiceImpl;
+import com.example.service.impl.CustomerServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
