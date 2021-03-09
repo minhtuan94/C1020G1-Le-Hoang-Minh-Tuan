@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Product;
 import com.example.demo.service.ProductService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +32,7 @@ public class ProductController {
         return "create";
     }
 
-    @GetMapping("/products/{id}/edit")
+    @GetMapping("/product/{id}/edit")
     public String update(@PathVariable Integer id,Model model) {
         Product product = productService.findById(id);
         model.addAttribute("product",product);
@@ -44,7 +43,7 @@ public class ProductController {
     public String save(@ModelAttribute Product product){
         productService.save(product);
         return "redirect:/";
-    }
+}
 
 
     @GetMapping("/product/{id}/delete")

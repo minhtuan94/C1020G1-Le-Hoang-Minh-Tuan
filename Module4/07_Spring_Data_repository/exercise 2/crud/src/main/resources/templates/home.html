@@ -16,13 +16,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="products,productstart : ${products}">
-        <td th:text="${products.getName()}"></td>
-        <td th:text="${products.getPrice()}"></td>
-        <td th:text="${products.getBrand()}"></td>
-        <td><a th:href="@{products/{id}/edit(id=${products.getId()})}">Edit</a></td>
-        <td><a th:href="@{products/{id}/delete(id=${products.getId()})}">Delete</a></td>
-        <td><a th:href="@{products/{id}/view(id=${products.getId()})}">View</a></td>
+    <tr th:each="product,productstart : ${products}">
+        <td th:text="${product.getName()}"></td>
+        <td th:text="${product.getPrice()}"></td>
+        <td th:text="${product.getBrand()}"></td>
+        <td><a th:href="@{product/{id}/edit(id=${product.getId()})}">Edit</a></td>
+        <td><a th:href="@{product/{id}/delete(id=${product.getId()})}">Delete</a></td>
+        <td><a th:href="@{product/{id}/view(id=${product.getId()})}">View</a></td>
     </tr>
     </tbody>
 </table>

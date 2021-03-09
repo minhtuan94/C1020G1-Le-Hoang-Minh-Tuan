@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout::head">
+    <meta charset="UTF-8">
+    <title>view</title>
+</head>
+<body>
+<div>
+    <label>Id: </label>
+    <input th:field="*{product.id}" readonly/>
+</div>
+<div>
+    <label>Name: </label>
+    <input th:field="*{product.name}" readonly/>
+</div>
+<div>
+    <label>Price: </label>
+    <input th:field="*{product.price}" readonly/>
+</div>
+<div>
+    <label>Brand: </label>
+    <input th:field="*{product.brand}" readonly/>
+</div>
+</body>
+</html>
