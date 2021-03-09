@@ -1,0 +1,53 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head th:replace="/layout::head">-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h3>Add Product</h3>-->
+<!--<form action="#" th:action="@{product/create}" th:object="${products}" method="post">-->
+<!--    <input type="hidden" th:field="*{id}"/><br>-->
+<!--    <label>Tên</label><br>-->
+<!--    <input type="text" th:field="*{name}"/><br>-->
+<!--    <label>Giá</label><br>-->
+<!--    <input type="text" th:field="*{price}"/><br>-->
+<!--    <label>Xuất Xứ</label><br>-->
+<!--    <input type="text" th:field="*{brand}"><br>-->
+<!--    <input type="submit" value="Save">-->
+<!--</form>-->
+<!--<footer th:replace="/layout::footer"></footer>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h3>Add product</h3>
+<p>
+    <a th:href="@{/}">
+        Back to product list
+    </a>
+</p>
+<div id="form">
+    <form action="#" th:action="@{/product/save}" th:object="${product}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label>Tên</label>
+            <input type="text" th:field="*{name}"/>
+        </div>
+        <div>
+            <label>Giá</label>
+            <input type="text" th:field="*{price}"/>
+        </div>
+        <div>
+            <label>Xuất xứ</label>
+            <input type="text" th:field="*{brand}"/>
+        </div>
+        <input type="submit" value="Save">
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

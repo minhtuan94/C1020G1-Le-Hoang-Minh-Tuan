@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+<body>
+<form th:action="@{/edit}" method="post" th:object="${blogEdit}">
+    <input type="hidden" th:field="*{id}">
+    <div class="form-group">
+        <label >Title</label>
+        <input type="text" th:field="*{title}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter title">
+        <small  class="form-text text-muted">You should set your title here.</small>
+    </div>
+    <div class="form-group">
+        <label >Content</label>
+        <input type="text" th:field="*{content}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter content">
+    </div>
+    <div>
+        <select class="custom-color-dialog"  th:field="*{category.categoryId}">
+            <option th:each="categoryL: ${category}" th:value="${categoryL.categoryId}" th:text="${categoryL.category}">
+            </option>
+        </select>
+    </div>
+    <button type="submit" class="bullet-button">Submit</button>
+</form>
+
+</body>
+</html>

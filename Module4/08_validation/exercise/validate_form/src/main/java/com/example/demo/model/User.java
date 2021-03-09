@@ -15,7 +15,6 @@ import javax.validation.constraints.Size;
 import org.springframework.validation.Validator;
 
 @Entity
-@Component
 public class User implements Validator {
 
     @Id
