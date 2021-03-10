@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/student/layout::head}">
+
+</head>
+<body>
+<form action="/blog/create" method="post" th:object="${blog}">
+    <div>
+        <label>Name:</label>
+        <input type="text"  th:field="*{title}"/>
+    </div>
+    <div>
+        <label>Gender:</label>
+        <input type="radio" th:field="*{content}" value="0" />Trinh thám
+        <input type="radio" th:field="*{content}" value="1" />Thần Thoại
+        <input type="radio" th:field="*{content}" value="2" />Cổ Trang
+    </div>
+    <input type="submit" value="Create">
+</form>
+</body>
+</html>

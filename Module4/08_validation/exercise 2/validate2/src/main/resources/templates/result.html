@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>Fist Name</td>
+        <td th:text="${user.firstName}"></td>
+
+    </tr>
+    <tr>
+        <td>Last Name</td>
+        <td th:text="${user.lastName}"></td>
+    </tr>
+    <tr>
+        <td>Age</td>
+        <td th:text="${user.age}"></td>
+    </tr>
+    <tr>
+        <td>PhoneNumber</td>
+        <td th:text="${user.phoneNumber}"></td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td th:text="${user.email}"></td>
+    </tr>
+    <tr>
+        <td><a href="/">Back to Home</a></td>
+    </tr>
+</table>
+</body>
+</html>
