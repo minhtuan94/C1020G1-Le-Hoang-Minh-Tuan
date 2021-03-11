@@ -1,57 +1,81 @@
 package com.example.demo.controller;
-import com.example.demo.model.Blog;
+import com.example.demo.entity.Blog;
 import com.example.demo.service.BlogService;
+import com.example.demo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.util.Optional;
 
 @Controller
 public class BlogController {
 
     @Autowired
-    BlogService blogService;
+    private BlogService blogService;
 
-    @GetMapping(value = {"","/list"})
-    public ModelAndView studentList(@PageableDefault(value = 2) Pageable pageable){
-        return new ModelAndView("/blog/list", "blogList", blogService.findAll(pageable));
+    @Autowired
+    private CategoryService categoryService;
+
+    @GetMapping("/")
+    public String goHomeBlog(Model model, @PageableDefault(size = 2) Pageable pageable, @RequestParam Optional<String> keyword) {
+
+        String keywordOld = "";
+        if (keyword.isPresent()) {
+            keywordOld = keyword.get();
+            model.addAttribute("listBlog", this.blogService.findByNameContaining(pageable, keywordOld));
+        } else {
+            model.addAttribute("listBlog", this.blogService.findAll(pageable));
+        }
+        model.addAttribute("keywordOld", keywordOld);
+        return "blog/home_blog";
     }
 
-
-    @GetMapping(value = "/create")
-    public String showCreateForm(Model model) {
+    @GetMapping("/create")
+    public String createFormBlog(Model model) {
         model.addAttribute("blog", new Blog());
-        return "/blog/create";
+        model.addAttribute("listCategory", this.categoryService.findAll());
+        return "blog/create";
     }
 
-    @PostMapping(value = "/create")
-    public String createStudent(@ModelAttribute Blog blog, RedirectAttributes redirectAttributes) {
-        blogService.save(blog);
-        redirectAttributes.addFlashAttribute("successMsg", "Create blog: "+blog.getTitle() +" success!");
-        return "redirect:/blog";
-//        return "forward:/student";
+    @PostMapping("/create")
+    public String createBlog(Blog blog) {
+        this.blogService.save(blog);
+        return "redirect:/";
     }
-    //
-    @GetMapping(value = "/edit/{id}")
-    public String showEditPage(@PathVariable int id, Model model){
-        System.out.println(id);
+
+    @GetMapping("/blog/update/{id}")
+    public String updateFormBlog(Model model, @PathVariable Integer id) {
         model.addAttribute("blog", blogService.findById(id));
-        return "/blog/edit";
+        model.addAttribute("listCategory", this.categoryService.findAll());
+        return "blog/update";
     }
 
-    @PostMapping(value = "/edit")
-    public String editStudent(@ModelAttribute Blog blog, RedirectAttributes redirectAttributes){
-        blogService.update(blog);
-        redirectAttributes.addFlashAttribute("successMsg", "Update blog: "+blog.getTitle() +" success!");
-        return "redirect:/blog";
+    @PostMapping("/blog/update")
+    public String updateBlog(Blog blog) {
+        blogService.save(blog);
+        return "redirect:/";
     }
 
-    @GetMapping("/search")
-    public ModelAndView searchByText(@RequestParam String inputSearch, @PageableDefault(value = 10)Pageable pageable){
-        return new ModelAndView("/blog/list", "blogList", blogService.findByInputText(inputSearch, pageable));
+    @GetMapping("/blog/delete/{id}")
+    public String deleteFormBlog(Model model, @PathVariable Integer id) {
+        model.addAttribute("blog", blogService.findById(id));
+        model.addAttribute("listCategory", this.categoryService.findAll());
+        return "blog/delete";
     }
+
+    @PostMapping("/blog/delete")
+    public String deleteBlog(Blog blog) {
+        blogService.remove(blog.getId());
+        return "redirect:/";
+    }
+
+    @GetMapping("/blog/view/{id}")
+    public String viewBlog(Model model, @PathVariable Integer id) {
+        model.addAttribute("blog", blogService.findById(id));
+        return "blog/view";
+    }
+
 }

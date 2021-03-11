@@ -6,13 +6,14 @@
 </head>
 <body>
 
-<form action="/create" method="post" th:object="${blog}">
+<form action="/blog/delete" th:object="${blog}" method="post">
+
     <table>
+        <input th:type="hidden" name="id" th:field="*{id}">
         <tr>
             <td>Blog Name</td>
             <td><input type="text" th:field="*{name}"/></td>
         </tr>
-
         <tr>
             <td>Category</td>
             <td>
@@ -22,20 +23,13 @@
                 </select>
             </td>
         </tr>
-
         <tr>
             <td>Blog Description</td>
             <td><textarea th:field="*{description}"></textarea></td>
-        </tr>
         <tr>
             <td></td>
-            <td><input type="hidden" th:field="${blog.localDateTime}"></td>
+            <td><input type="submit" value="Delete Blog"/></td>
         </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Create Blog"/></td>
-        </tr>
-
     </table>
 </form>
 </body>

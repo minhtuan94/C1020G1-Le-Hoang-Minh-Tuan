@@ -1,6 +1,6 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.Blog;
+import com.example.demo.entity.Blog;
 import com.example.demo.repository.BlogRepository;
 import com.example.demo.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +10,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class BlogServiceImpl implements BlogService {
-
     @Autowired
     private BlogRepository blogRepository;
+
+    @Override
+    public List<Blog> searchBlogName(String name) {
+        return this.blogRepository.searchBlogName(name);
+    }
 
     @Override
     public List<Blog> findAll() {
@@ -27,22 +32,22 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public void save(Blog student) {
-        blogRepository.save(student);
-    }
-
-    @Override
-    public void update(Blog student) {
-        blogRepository.save(student);
-    }
-
-    @Override
-    public Blog findById(int id) {
+    public Blog findById(Integer id) {
         return blogRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Page<Blog> findByInputText(String inputSearch, Pageable pageable) {
-        return blogRepository.findByName2(inputSearch, pageable);
+    public void save(Blog blog) {
+        this.blogRepository.save(blog);
+    }
+
+    @Override
+    public void remove(Integer id) {
+        this.blogRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Blog> findByNameContaining(Pageable pageable, String name) {
+        return this.blogRepository.findAllByNameContaining(pageable, name);
     }
 }
