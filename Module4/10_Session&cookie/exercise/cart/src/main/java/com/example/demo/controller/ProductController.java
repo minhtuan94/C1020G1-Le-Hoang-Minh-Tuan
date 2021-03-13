@@ -1,109 +1,89 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Product;
+import com.example.demo.service.Cart;
 import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 @Controller
 @SessionAttributes("cart")
 public class ProductController {
-    @Autowired
-    private ProductService productService;
 
-    @ModelAttribute("cart")
-    public Map<Product, Integer> cart(){
-        return new HashMap<>();
+    @Autowired
+    ProductService productService;
+
+
+    @GetMapping("/")
+    public String home(Model model, Pageable pageable) {
+        model.addAttribute( "products", productService.findAllProduct( pageable ) );
+        return "/home";
     }
 
-    @GetMapping("/product/{id}/add")
-    public String add(@ModelAttribute("cart") Map<Product, Integer> cart, @PathVariable Integer id, Model model){
-        Product product = productService.findById(id);
-        if (cart.containsKey(product)){
-            cart.replace(product, cart.get(product), cart.get(product) + 1);
-        } else {
-            cart.put(product, 1);
-        }
-        model.addAttribute("message","Product added to cart !!");
-        model.addAttribute("product", product);
+    @GetMapping("/view/{id}")
+    public String view(@PathVariable Integer id, Model model) {
+        model.addAttribute( "product", productService.findById( id ) );
         return "/view";
     }
 
-    @GetMapping("/oder/{id}/reduction")
-    public String reduction(@ModelAttribute("cart") Map<Product, Integer> cart,@PathVariable Integer id, Model model){
-        Product product = productService.findById(id);
-//        cart.put(product, cart.get(product) - 1);
-        if (cart.get(product) <= 0){
-            model.addAttribute("message","Your shopping cart is empty !!");
-        } else {
-            // xét value củ của key thành value mới.
-            cart.replace(product,cart.get(product),cart.get(product) - 1);
-        }
-        model.addAttribute("cart", cart);
-        return "/viewCart";
-    }
-
-    @GetMapping("/oder/{id}/increase")
-    public String increase(@ModelAttribute("cart") Map<Product, Integer> cart,@PathVariable Integer id, Model model){
-        Product product = productService.findById(id);
-        cart.replace(product, cart.get(product), cart.get(product) + 1);
-        return "/viewCart";
-    }
-
-    @GetMapping("/oder/{id}/delete")
-    public String delete(@ModelAttribute("cart") Map<Product, Integer> cart, @PathVariable Integer id, Model model){
-        cart.remove(productService.findById(id));
-        model.addAttribute("message", "Has deleted the product from the cart !!");
-        return "/viewCart";
-    }
-
-    @GetMapping("/{id}/cart")
-    public String addCart(@ModelAttribute("cart") Map<Product,Integer> cart,@PathVariable Integer id){
-        cart.put( productService.findById(id), 1);
+    @GetMapping("/product/shopping")
+    public String shopping(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute( "message", "Purchase successful !" );
         return "redirect:/";
     }
 
-    @GetMapping("/viewCart")
-    private String viewCart(){
-        return "viewCart";
-    }
-
-    @GetMapping("/")
-    public String showProduct(Model model){
-        model.addAttribute("productList",productService.findAll());
-        return "show";
-    }
-
-    @GetMapping("/product/{id}/edit")
-    public String edit(@PathVariable Integer id, Model model){
-        model.addAttribute("productEdit",productService.findById(id));
-        return "edit";
-    }
-
-    @PostMapping("/product/edit")
-    public String update(Product product, RedirectAttributes redirectAttributes){
-        productService.save(product);
-        redirectAttributes.addFlashAttribute("edited", "Đã chỉnh sửa");
+    @PostMapping("/addcart")
+    public String addCart(@ModelAttribute Product product,@RequestParam Integer amount,
+                          @ModelAttribute Cart cart, RedirectAttributes redirectAttributes) {
+        cart.save( product,amount );
+        redirectAttributes.addFlashAttribute( "message",
+                "Has successfully added the " + product.getName() + " product to the cart !" );
         return "redirect:/";
     }
 
-    @GetMapping("/product/{id}/delete")
-    public String delete(@PathVariable Integer id){
-        productService.delete(id);
+    @GetMapping("/view/cart")
+    public String viewCart(@ModelAttribute Cart cart) {
+        return "/viewcart";
+    }
+
+    @GetMapping("/deletecart/{id}")
+    public String delete(@PathVariable Integer id, @ModelAttribute("cart") Cart cart, RedirectAttributes redirectAttributes) {
+        Product product = productService.findById( id );
+        cart.delete( product );
+        redirectAttributes.addFlashAttribute( "message",
+                "The " + product.getName() + " product has been successfully deleted from your shopping cart" );
         return "redirect:/";
     }
 
-    @GetMapping("/product/{id}/view")
-    public String showView(@PathVariable Integer id, Model model){
-        model.addAttribute("productView", productService.findById(id));
-        return "view";
+    @GetMapping("/deleteallcart")
+    public String deleteAll(@ModelAttribute("cart") Cart cart, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute( "message",
+                "The shopping cart has been successfully deleted" );
+        cart.deleteAll();
+        return "redirect:/";
     }
+
+    @GetMapping("/editcart/{id}")
+    public String editCart(@PathVariable Integer id, Model model , @ModelAttribute Cart cart){
+        model.addAttribute( "product",productService.findById( id ) );
+        return "/editcart";
+    }
+    @PostMapping("/editcartitem")
+    public String editCartItem(@RequestParam Integer amount,@ModelAttribute Product product,@ModelAttribute Cart cart){
+        cart.edit( product,amount );
+        return "redirect:/";
+    }
+
+    @ModelAttribute("cart")
+    public Cart cart() {
+        return new Cart();
+    }
+
+
 }

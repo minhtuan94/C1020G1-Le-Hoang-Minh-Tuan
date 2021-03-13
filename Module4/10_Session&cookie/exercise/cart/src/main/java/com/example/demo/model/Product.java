@@ -8,10 +8,15 @@ import javax.persistence.Id;
 @Entity
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
-    private String price;
+    private String description;
+    private Integer price;
+    private Double discount;
+
+    public Product() {
+    }
 
     public Integer getId() {
         return id;
@@ -29,14 +34,27 @@ public class Product {
         this.name = name;
     }
 
-    public String getPrice() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
-    public Product() {
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
     }
 }
