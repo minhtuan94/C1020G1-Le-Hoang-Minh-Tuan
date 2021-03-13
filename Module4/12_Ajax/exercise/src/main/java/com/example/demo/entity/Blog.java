@@ -2,30 +2,24 @@ package com.example.demo.entity;
 
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
-@Entity(name = "blog")
+@Entity
 public class Blog {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private String description;
-    private LocalDateTime localDateTime;
+    private String blogger;
+
+    @Column(name = "date_writer",columnDefinition = "DATE")
+    private String date;
+    private String content;
 
     @ManyToOne
-    @JoinColumn(name = "blog_id", referencedColumnName = "id")
+    @JoinColumn( name = "category", referencedColumnName = "id")
     private Category category;
 
     public Blog() {
-    }
-
-    public Blog(Integer id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
     }
 
     public Integer getId() {
@@ -44,12 +38,28 @@ public class Blog {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getBlogger() {
+        return blogger;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setBlogger(String blogger) {
+        this.blogger = blogger;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Category getCategory() {
@@ -58,13 +68,5 @@ public class Blog {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public LocalDateTime getLocalDateTime() {
-        return LocalDateTime.now();
-    }
-
-    public void setLocalDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
     }
 }

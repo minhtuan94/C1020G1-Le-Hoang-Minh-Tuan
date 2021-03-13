@@ -12,70 +12,70 @@ import java.util.Optional;
 
 @Controller
 public class BlogController {
-
     @Autowired
-    private BlogService blogService;
-
+    BlogService blogService;
     @Autowired
-    private CategoryService categoryService;
+    CategoryService categoryService;
 
     @GetMapping("/")
-    public String goHomeBlog(Model model, @PageableDefault(size = 2) Pageable pageable, @RequestParam Optional<String> keyword) {
-
-        String keywordOld = "";
-        if (keyword.isPresent()) {
-            keywordOld = keyword.get();
-            model.addAttribute("listBlog", this.blogService.findByNameContaining(pageable, keywordOld));
-        } else {
-            model.addAttribute("listBlog", this.blogService.findAll(pageable));
-        }
-        model.addAttribute("keywordOld", keywordOld);
-        return "blog/home_blog";
+    public String goHome( Model model){
+        model.addAttribute( "listBlog",blogService.findAllBlogByNumber( 3 ));
+        model.addAttribute( "listCategory",categoryService.findAllCategory() );
+        model.addAttribute( "number", 3 );
+        return "/blog/home";
     }
-
     @GetMapping("/create")
-    public String createFormBlog(Model model) {
-        model.addAttribute("blog", new Blog());
-        model.addAttribute("listCategory", this.categoryService.findAll());
-        return "blog/create";
+    public String create(Model model){
+        model.addAttribute( "listCategory",categoryService.findAllCategory() );
+        model.addAttribute( "blog",new Blog() );
+        return "/blog/create";
     }
-
-    @PostMapping("/create")
-    public String createBlog(Blog blog) {
-        this.blogService.save(blog);
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id , Model model){
+        model.addAttribute( "blog",blogService.findBlogById( id ));
+        return "/blog/edit";
+    }
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id){
+        blogService.deleteBlog( id );
         return "redirect:/";
     }
-
-    @GetMapping("/blog/update/{id}")
-    public String updateFormBlog(Model model, @PathVariable Integer id) {
-        model.addAttribute("blog", blogService.findById(id));
-        model.addAttribute("listCategory", this.categoryService.findAll());
-        return "blog/update";
+    @GetMapping("/view/{id}")
+    public String view(@PathVariable Integer id,Model model){
+        model.addAttribute( "blog",blogService.findBlogById( id ) );
+        return "/blog/view";
     }
-
-    @PostMapping("/blog/update")
-    public String updateBlog(Blog blog) {
-        blogService.save(blog);
+    @GetMapping("/view_by_blog/{id}")
+    public String viewByBlog(@PathVariable Integer id,Model model , @PageableDefault(size = 3) Pageable pageable){
+        model.addAttribute( "listBlog",blogService.findBlogByCategory_Id( id,pageable ) );
+        model.addAttribute( "listCategory",categoryService.findAllCategory() );
+        return "/blog/home";
+    }
+    @GetMapping("/sort")
+    public String sort( Model model,@PageableDefault(size = 3) Pageable pageable){
+        model.addAttribute( "listBlog",blogService.findBlogByOrderByDateAsc(pageable));
+        model.addAttribute( "listCategory",categoryService.findAllCategory() );
+        return "/blog/home";
+    }
+    @PostMapping("/save")
+    public String save(@ModelAttribute Blog blog){
+        blogService.saveBlog( blog );
         return "redirect:/";
     }
-
-    @GetMapping("/blog/delete/{id}")
-    public String deleteFormBlog(Model model, @PathVariable Integer id) {
-        model.addAttribute("blog", blogService.findById(id));
-        model.addAttribute("listCategory", this.categoryService.findAll());
-        return "blog/delete";
+    @GetMapping("/blog/search")
+    public String search(@RequestParam String search, Model model,@RequestParam("number") Integer number){
+        model.addAttribute( "listBlog",blogService.findBlogByNameContains( search, number ) );
+        model.addAttribute( "listCategory",categoryService.findAllCategory() );
+        model.addAttribute( "number",number );
+        model.addAttribute( "search",search );
+        return "/blog/home";
     }
-
-    @PostMapping("/blog/delete")
-    public String deleteBlog(Blog blog) {
-        blogService.remove(blog.getId());
-        return "redirect:/";
-    }
-
-    @GetMapping("/blog/view/{id}")
-    public String viewBlog(Model model, @PathVariable Integer id) {
-        model.addAttribute("blog", blogService.findById(id));
-        return "blog/view";
+    @GetMapping("/blog/seemore")
+    public String seeMore(@RequestParam String search, Model model,@RequestParam("number") Integer number){
+        model.addAttribute( "listBlog",blogService.findBlogByNameContains( search, number ) );
+        model.addAttribute( "listCategory",categoryService.findAllCategory() );
+        model.addAttribute( "search",search );
+        return "/blog/home";
     }
 
 }

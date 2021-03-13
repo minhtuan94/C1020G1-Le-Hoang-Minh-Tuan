@@ -6,21 +6,22 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BlogService {
+    List<Blog> findAllBlog();
 
-    List<Blog> searchBlogName(String name);
+    Optional<Blog> findBlogById(Integer id);
 
-    List<Blog> findAll();
+    void deleteBlog(Integer id);
 
-    Page<Blog> findAll(Pageable pageable);
+    void saveBlog(Blog blog);
 
-    Blog findById(Integer id);
+    Page<Blog> findBlogByCategory_Id(Integer id, Pageable pageable);
 
-    void save(Blog blog);
+    List<Blog> findBlogByNameContains(String search, Integer number);
 
-    void remove(Integer id);
+    Page<Blog> findBlogByOrderByDateAsc(Pageable pageable);
 
-    Page<Blog> findByNameContaining(Pageable pageable, String name);
-
+    List<Blog> findAllBlogByNumber(Integer number);
 }

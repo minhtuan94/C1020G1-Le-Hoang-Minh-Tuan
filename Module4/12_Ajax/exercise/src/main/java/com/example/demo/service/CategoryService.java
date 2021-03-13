@@ -5,8 +5,12 @@ import com.example.demo.entity.Category;
 import java.util.List;
 
 public interface CategoryService {
-    List<Category> findAll();
-    void save(Category category);
-    Category findById(Integer id);
-    void remove(Integer id);
+    List<Category> findAllCategory();
+
+    void saveCategory(Category category);
+
+    void deleteCategory(Integer id);
+
+    Category findCategoryById(Integer id);
+
 }

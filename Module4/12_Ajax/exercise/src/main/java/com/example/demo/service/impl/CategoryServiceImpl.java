@@ -11,25 +11,25 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
-    private CategoryRepository categoryRepository;
+    CategoryRepository categoryRepository;
 
     @Override
-    public List<Category> findAll() {
-        return this.categoryRepository.findAll();
+    public List<Category> findAllCategory() {
+        return categoryRepository.findAll();
     }
 
     @Override
-    public void save(Category category) {
-        this.categoryRepository.save(category);
+    public void saveCategory(Category category) {
+        categoryRepository.save( category );
     }
 
     @Override
-    public Category findById(Integer id) {
-        return this.categoryRepository.findById(id).orElse(null);
+    public void deleteCategory(Integer id) {
+        categoryRepository.deleteById( id );
     }
 
     @Override
-    public void remove(Integer id) {
-        this.categoryRepository.deleteById(id);
+    public Category findCategoryById(Integer id) {
+        return categoryRepository.findCategoryById( id );
     }
 }
