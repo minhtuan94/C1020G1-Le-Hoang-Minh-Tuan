@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::header">
+    <meta charset="UTF-8">
+    <title>Trang chủ</title>
+
+</head>
+<body style="background-image: url('hình nền.jpg')">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed">
+    <a class="navbar-brand" href="#"> <img src="FURAMA.png" width="100px" height="100px" alt="logo-header"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" style="margin-left: 150px; font-size: larger" th:href="@{/}">Trang chủ<span
+                        class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item" style="margin-left: 30px; font-size: larger">
+                <a class="nav-link" th:href="@{/customer/show}">Khách hàng</a>
+            </li>
+            <li class="nav-item" style="margin-left: 30px; font-size: larger">
+                <a class="nav-link" href="#">Nhân viên</a>
+            </li>
+            <li class="nav-item" style="margin-left: 30px; font-size: larger">
+                <a class="nav-link" href="#">Dịch vụ</a>
+            </li>
+            <li class="nav-item" style="margin-left: 30px; font-size: larger">
+                <a class="nav-link" href="#">Hợp đồng</a>
+            </li>
+            <li class="nav-item" style="margin-left: 30px; font-size: larger">
+                <a class="nav-link" href="#">Hợp đồng chi tiết</a>
+            </li>
+            <!--            <li class="nav-item dropdown">-->
+            <!--                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+            <!--                    Dropdown-->
+            <!--                </a>-->
+            <!--                <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+            <!--                    <a class="dropdown-item" href="#">Action</a>-->
+            <!--                    <a class="dropdown-item" href="#">Another action</a>-->
+            <!--                    <div class="dropdown-divider"></div>-->
+            <!--                    <a class="dropdown-item" href="#">Something else here</a>-->
+            <!--                </div>-->
+            <!--            </li>-->
+            <!--            <li class="nav-item">-->
+            <!--                <a class="nav-link disabled" href="#">Disabled</a>-->
+            <!--            </li>-->
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
+        </form>
+    </div>
+</nav>
+<div class="container" style="display: flex">
+    <div class="col-md-2 bg-dark">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Giới thiệu</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Bộ máy</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Hình ảnh</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-10" style="background-color: deepskyblue">
+        <h4 style="text-align: center; font-size: 30px">Chào mừng bạn đến với Resort FURAMA của chúng tôi</h4>
+        <p>Điền thông tin vào form sau và nhấn nút đăng ký nếu đây là lần đầu tiên bạn đến với FURAMA</p><br>
+        <form>
+            <div class="form-group">
+                <label>Họ và tên</label>
+                <input type="email" class="form-control" aria-describedby="emailHelp"
+                       placeholder="Nhập tên đầy đủ của bạn">
+            </div>
+            <div class="form-group">
+                <label>Ngày sinh</label>
+                <input type="email" class="form-control" aria-describedby="emailHelp"
+                       placeholder="Nhập ngày sinh của bạn">
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="exampleCheck1" name="gender">
+                <label class="form-check-label" for="exampleCheck1">Nam</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="exampleCheck2" name="gender">
+                <label class="form-check-label" for="exampleCheck1">Nữ</label>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Nhập email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                    else.</small>
+            </div>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="email" class="form-control" aria-describedby="emailHelp"
+                       placeholder="Nhập username của bạn">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Nhập Password">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Đăng ký</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
