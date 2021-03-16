@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout::header}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:object="${emView}" style="margin-left: 30px">
+    <div class="form-group">
+        <label for="formId">Id: </label>
+        <input type="text" class="form-control" id="formId" readonly th:field="*{id}">
+    </div>
+    <div class="form-group">
+        <label for="formName">Tên: </label>
+        <input type="text" class="form-control" id="formName" readonly th:field="*{name}">
+    </div>
+    <div class="form-group">
+        <label for="formDes">Ngày sinh: </label>
+        <input class="form-control" id="formDes" readonly th:field="*{birthday}">
+    </div>
+    <div class="form-group">
+        <label for="formDiscount">Số CMND: </label>
+        <input class="form-control" id="formDiscount" readonly th:field="*{idCard}">
+    </div>
+    <div class="form-group">
+        <label for="formPrice">Lương: </label>
+        <input class="form-control" id="formPrice" readonly th:field="*{salary}">
+    </div>
+    <div class="form-group">
+        <label for="formAmount">Số điện thoại: </label>
+        <input type="number" class="form-control" id="formAmount" th:field="*{phone}" readonly />
+    </div>
+    <div class="form-group">
+        <label for="formDiscount">Số CMND: </label>
+        <input class="form-control" id="email" readonly th:field="*{email}">
+    </div>
+    <div class="form-group">
+        <label for="formDiscount">Số CMND: </label>
+        <input class="form-control" id="address" readonly th:field="*{address}">
+    </div>
+    <div class="form-group">
+        <label for="formDiscount">Vị trí: </label>
+        <input class="form-control" id="position" readonly th:field="*{position.name}">
+    </div>
+    <div class="form-group">
+        <label for="formDiscount">Trình độ: </label>
+        <input class="form-control" id="education" readonly th:field="*{educationDegree.name}">
+    </div>
+    <div class="form-group">
+        <label for="formDiscount">Bộ phận: </label>
+        <input class="form-control" id="division" readonly th:field="*{division.name}">
+    </div>
+    <a th:href="@{/customer/show}" style="margin-left: 30px" class="btn btn-secondary" role="button">Close
+    </a>
+</form>
+</body>
+</html>

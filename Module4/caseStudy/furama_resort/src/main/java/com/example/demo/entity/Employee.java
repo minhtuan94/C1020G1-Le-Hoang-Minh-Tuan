@@ -16,7 +16,7 @@ public class Employee {
     private String birthday;
 
     @Column(name = "employee_id_card", length = 45, nullable = false)
-    private String id_card;
+    private String idCard;
 
     @Column(name = "employee_salary", nullable = false)
     private Double salary;
@@ -26,7 +26,6 @@ public class Employee {
 
     @Column(name = "employee_email",length = 45)
     private String email;
-
 
     @Column(name = "employee_address",length = 45)
     private String address;
@@ -70,12 +69,12 @@ public class Employee {
         this.birthday = birthday;
     }
 
-    public String getId_card() {
-        return id_card;
+    public String getIdCard() {
+        return idCard;
     }
 
-    public void setId_card(String id_card) {
-        this.id_card = id_card;
+    public void setIdCard(String id_card) {
+        this.idCard = id_card;
     }
 
     public Double getSalary() {

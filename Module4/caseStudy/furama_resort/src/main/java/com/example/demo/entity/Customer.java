@@ -21,7 +21,7 @@ public class Customer {
     @Column(name = "customer_birthday",columnDefinition = "date",nullable = false)
     private String birthday;
 
-    @Column(name = "customer_gender",length = 20, nullable = false)
+    @Column(name = "customer_gender",length = 20)
     private String gender;
 
     @Column(name = "customer_id_card",length = 45,nullable = false)

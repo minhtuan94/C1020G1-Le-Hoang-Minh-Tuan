@@ -2,18 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout::header}">
     <meta charset="UTF-8">
-    <title>edit_employee</title>
+    <title>edit_customer</title>
 </head>
 <body>
 <h1>Chỉnh sửa thông tin</h1>
-<form method="post" th:action="@{/customer/edit}" th:object="${editCus}" >
+<form method="post" th:action="@{/employee/save}" th:object="${editEm}" >
     <input type="hidden" th:field="*{id}">
-    <div class="form-group">
-        <label>ID Loại Khách</label>
-        <select th:field="*{customerType}">
-            <option th:each="editType : ${customerTypes}" th:value="${editType.id}" th:text="${editType.name} ">
-            </option>
-        </select>
     </div>
     <div class="form-group">
         <label>Tên</label>
@@ -26,14 +20,13 @@
                placeholder="Enter content">
     </div>
     <div class="form-group">
-        <label >Giới tính<span>*</span></label>
-        <input type="radio"  th:field="*{gender}" value="Male"> Male
-        <input type="radio"  th:field="*{gender}"  value="Female"> Female
-        <input type="radio"  th:field="*{gender}"  value="Other"> Other
-    </div>
-    <div class="form-group">
         <label>CMND</label>
         <input type="text" th:field="*{idCard}" class="form-control" aria-describedby="emailHelp"
+               placeholder="Enter content">
+    </div>
+    <div class="form-group">
+        <label>Lương</label>
+        <input type="text" th:field="*{salary}" class="form-control" aria-describedby="emailHelp"
                placeholder="Enter content">
     </div>
     <div class="form-group">
@@ -50,6 +43,27 @@
         <label>Địa chỉ</label>
         <input type="text" th:field="*{address}" class="form-control" aria-describedby="emailHelp"
                placeholder="Enter content">
+    </div>
+    <div class="form-group">
+        <label>Vị trí</label>
+        <select th:field="*{position}">
+            <option th:each="po : ${positions}" th:value="${po.id}" th:text="${po.name}">
+            </option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Trình độ</label>
+        <select th:field="*{educationDegree}">
+            <option th:each="e : ${educations}" th:value="${e.id}" th:text="${e.name}">
+            </option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Bộ phận</label>
+        <select th:field="*{division}">
+            <option th:each="d : ${divisions}" th:value="${d.id}" th:text="${d.name}">
+            </option>
+        </select>
     </div>
     <button class="bullet-button btn-warning" type="submit">Xong</button>
 </form>

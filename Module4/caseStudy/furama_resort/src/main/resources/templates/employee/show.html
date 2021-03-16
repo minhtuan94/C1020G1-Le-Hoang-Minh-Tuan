@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout::header}">
     <meta charset="UTF-8">
-    <title>Show</title>
+    <title>show</title>
 </head>
 <body>
-<h1>Customer</h1>
+<h1>NHÂN VIÊN</h1>
 <nav class="navbar navbar-light bg-light justify-content-between">
-    <a class="btn btn-primary btn-sm" th:href="@{/customer/create}">ADD NEW CUSTOMER</a>
+    <a class="btn btn-primary btn-sm" th:href="@{/employee/create}">ADD NEW EMPLOYEE</a>
     <form class="form-inline">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -16,41 +16,45 @@
 <table class="table table-dark">
     <tr>
         <td>STT</td>
-        <td>ID Loại khách</td>
         <td>Tên</td>
         <td>Ngày sinh</td>
-        <td>Giới tính</td>
         <td>Số CMND</td>
+        <td>Lương</td>
         <td>Số điện thoại</td>
         <td>Email</td>
         <td>Địa chỉ</td>
+        <td>Vị trí</td>
+        <td>Trình độ</td>
+        <td>Bộ phận</td>
     </tr>
-    <tr th:each="customer : ${customerList}">
-        <td th:text="*{customer.id}"></td>
-        <td th:text="*{customer.customerType.name}"></td>
-        <td th:text="*{customer.name}"></td>
-        <td th:text="*{customer.birthday}"></td>
-        <td th:text="*{customer.gender}"></td>
-        <td th:text="*{customer.idCard}"></td>
-        <td th:text="*{customer.phone}"></td>
-        <td th:text="*{customer.email}"></td>
-        <td th:text="*{customer.address}"></td>
-        <td><a class="btn btn-outline-primary" th:href="@{/customer/{id}/edit(id=${customer.id})}">Edit</a></td>
+    <tr th:each="em : ${employeeList}">
+        <td th:text="*{em.id}"></td>
+        <td th:text="*{em.name}"></td>
+        <td th:text="*{em.birthday}"></td>
+        <td th:text="*{em.idCard}"></td>
+        <td th:text="*{em.salary}"></td>
+        <td th:text="*{em.phone}"></td>
+        <td th:text="*{em.email}"></td>
+        <td th:text="*{em.address}"></td>
+        <td th:text="*{em.position.name}"></td>
+        <td th:text="*{em.educationDegree.name}"></td>
+        <td th:text="*{em.division.name}"></td>
+        <td><a class="btn btn-outline-primary" th:href="@{/employee/{id}/edit(id=${em.id})}">Edit</a></td>
         <td>
             <button data-toggle="modal" data-target="#modalDelete"
-               th:id="${customer.id}" th:data-name="${customer.name}"
-               class="btn btn-warning delete">Delete</button>
+                    th:id="${em.id}" th:data-name="${em.name}"
+                    class="btn btn-warning delete">Delete</button>
         </td>
-        <td><a class="btn btn-outline-primary" th:href="@{/customer/{id}/view(id=${customer.id})}">View</a></td>
+        <td><a class="btn btn-outline-primary" th:href="@{/employee/{id}/view(id=${em.id})}">View</a></td>
     </tr>
 </table>
 
-        <a th:href="@{'/customer/show'(page=${customerList.number - 1})}" th:if="${customerList.hasPrevious()}">
+<a th:href="@{'/employee/show'(page=${employeeList.number - 1})}" th:if="${employeeList.hasPrevious()}">
     <button class="btn btn-info">Previous</button>
 </a>
-<span style="color: red" th:text="${customerList.number + 1}"></span>/
-<span style="color: red" th:text="${customerList.totalPages}"></span>
-<a th:href="@{'/customer/show'(page=${customerList.number + 1})}" th:if="${customerList.hasNext()}">
+<span style="color: red" th:text="${employeeList.number + 1}"></span>/
+<span style="color: red" th:text="${employeeList.totalPages}"></span>
+<a th:href="@{'/employee/show'(page=${employeeList.number + 1})}" th:if="${employeeList.hasNext()}">
     <button class="btn btn-info">Next</button>
 </a>
 <br>
@@ -60,7 +64,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" style="color: black">Delete Customer</h5>
+                <h5 class="modal-title" style="color: black">Sa thải nhân viên</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -81,7 +85,7 @@
     $(document).ready(function () {
         $('.delete').click(function () {
             let tag = $(this)[0];
-            document.getElementById("delete").href = "/customer/"+tag.id+"/delete";
+            document.getElementById("delete").href = "/employee/"+tag.id+"/delete";
             $("#modelId").modal('show');
         })
     })

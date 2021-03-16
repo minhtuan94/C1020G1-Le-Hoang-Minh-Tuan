@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "division")
@@ -12,6 +13,9 @@ public class Division {
 
     @Column(name = "division_name", length = 45)
     private String name;
+
+    @OneToMany(mappedBy = "division")
+    private List<Employee> employees;
 
     public Division() {
     }

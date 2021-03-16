@@ -36,7 +36,7 @@ public class CustomerController {
             return "/customer/show";
         }else {
             keywordOld = keyword.get();
-            model.addAttribute("blogTitle", customerService.findAllInputText(keywordOld, pageable));
+            model.addAttribute("customer", customerService.findAllInputText(keywordOld, pageable));
             model.addAttribute("keywordOld", keywordOld);
             return "customer/show";
         }
@@ -71,5 +71,11 @@ public class CustomerController {
     public String delete(@PathVariable Integer id){
         customerService.delete(id);
         return "redirect:/customer/show";
+    }
+
+    @GetMapping("/{id}/view")
+    public String view(@PathVariable Integer id, Model model) {
+        model.addAttribute( "customerView", customerService.findById( id ) );
+        return "/customer/view";
     }
 }

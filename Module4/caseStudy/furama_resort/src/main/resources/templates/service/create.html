@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout::header}">
+    <meta charset="UTF-8">
+    <title>create_customer</title>
+</head>
+<body>
+<h1>Create Customer</h1>
+<form th:action="@{/service/save}" method="post" th:object="${service}">
+
+    <div class="form-group">
+        <label>STT</label>
+        <input type="text" th:field="*{id}" class="form-control" disabled aria-describedby="emailHelp"
+               placeholder="Enter content">
+    </div>
+
+    <div class="form-group">
+        <label>Tên dịch vụ</label>
+        <input type="text" th:field="*{name}" class="form-control" aria-describedby="emailHelp"
+               placeholder="Enter content">
+    </div>
+    <div class="form-group">
+        <label>Diện tích sử dụng</label>
+        <input type="text" th:field="*{serviceArea}" class="form-control" aria-describedby="emailHelp"
+               placeholder="Enter content">
+    </div>
+    <div class="form-group">
+        <label>Chi phí thuê</label>
+        <input type="text" th:field="*{cost}" class="form-control" aria-describedby="emailHelp"
+               placeholder="Enter content">
+    </div>
+    <div class="form-group">
+        <label>Số người tối đa</label>
+        <input type="text" th:field="*{maxPeople}" class="form-control" aria-describedby="emailHelp"
+               placeholder="Enter content">
+    </div>
+    <div class="form-group">
+        <label>Tiêu chuẩn phòng</label>
+        <input type="text" th:field="*{standardRoom}" class="form-control" aria-describedby="emailHelp"
+               placeholder="Enter content">
+    </div>
+    <div class="form-group">
+        <label>Mô tả tiện nghi</label>
+        <input type="text" th:field="*{description}" class="form-control" aria-describedby="emailHelp"
+               placeholder="Enter content">
+    </div>
+    <div class="form-group">
+        <label>Diện tích hồ bơi</label>
+        <input type="text" th:field="*{poolArea}" class="form-control" aria-describedby="emailHelp"
+               placeholder="Enter content">
+    </div>
+    <div class="form-group">
+        <label>Số tầng</label>
+        <input type="text" th:field="*{numberOfFloor}" class="form-control" aria-describedby="emailHelp"
+               placeholder="Enter content">
+    </div>
+    <div class="form-group">
+        <label>Loại dịch vụ</label>
+        <select th:field="*{serviceType}">
+            <option th:each="type : ${serviceTypes}" th:value="${type.id}" th:text="${type.name}">
+            </option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Kiểu thuê</label>
+        <select th:field="*{rentType}">
+            <option th:each="type : ${rentTypes}" th:value="${type.id}" th:text="${type.name}">
+            </option>
+        </select>
+    </div>
+    <button class="bullet-button btn-warning" type="submit">Xong</button>
+</form>
+</body>
+</html>
