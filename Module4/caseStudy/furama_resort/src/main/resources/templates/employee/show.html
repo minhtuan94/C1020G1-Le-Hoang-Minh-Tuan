@@ -9,7 +9,8 @@
 <nav class="navbar navbar-light bg-light justify-content-between">
     <a class="btn btn-primary btn-sm" th:href="@{/employee/create}">ADD NEW EMPLOYEE</a>
     <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control mr-sm-2" th:name="keywordOldCus" type="search" placeholder="Search"
+               aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
 </nav>
@@ -43,20 +44,41 @@
         <td>
             <button data-toggle="modal" data-target="#modalDelete"
                     th:id="${em.id}" th:data-name="${em.name}"
-                    class="btn btn-warning delete">Delete</button>
+                    class="btn btn-warning delete">Delete
+            </button>
         </td>
         <td><a class="btn btn-outline-primary" th:href="@{/employee/{id}/view(id=${em.id})}">View</a></td>
     </tr>
 </table>
 
-<a th:href="@{'/employee/show'(page=${employeeList.number - 1})}" th:if="${employeeList.hasPrevious()}">
+<a class="page-item" th:href="@{'/employee/show'(page=${employeeList.number - 1})}" th:if="${employeeList.hasPrevious()}">
     <button class="btn btn-info">Previous</button>
 </a>
-<span style="color: red" th:text="${employeeList.number + 1}"></span>/
-<span style="color: red" th:text="${employeeList.totalPages}"></span>
-<a th:href="@{'/employee/show'(page=${employeeList.number + 1})}" th:if="${employeeList.hasNext()}">
+<span  style="color: red" th:text="${employeeList.number + 1}"></span>/
+<span  style="color: red" th:text="${employeeList.totalPages}"></span>
+<a class="page-item" th:href="@{'/employee/show'(page=${employeeList.number + 1})}" th:if="${employeeList.hasNext()}">
     <button class="btn btn-info">Next</button>
 </a>
+<!--<div>-->
+<!--    <nav aria-label="Page navigation example">-->
+<!--        <ul class="pagination">-->
+<!--            <li class="page-item" th:if="${employeeList.hasPrevious()}">-->
+<!--                <a class="page-link"-->
+<!--                   th:href="@{'/employee/show'(page=${employeeList.number - 1},keyword = ${keywordOld},size=${employeeList.size})}">Previous</a>-->
+<!--            </li>-->
+<!--            <th:block th:each="i: ${#numbers.sequence(0, employeeList.totalPages - 1)}">-->
+<!--                <li class="page-link" th:if="${employeeList.number == i}">[[${i}+1]]</li>-->
+<!--                <li class="page-link" th:unless="${employeeList.number == i}">-->
+<!--                    <a th:href="@{/customer(page=${i},size=${employeeList.size})}">[[${i}+1]]</a></li>-->
+<!--            </th:block>-->
+<!--            <li class="page-item" th:if="${employeeList.hasNext()}">-->
+<!--                <a class="page-link"-->
+<!--                   th:href="@{'/employee/show'(page=${employeeList.number+1},keyword = ${keywordOld},size=${employeeList.size})}">Next</a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </nav>-->
+<!--</div>-->
+
 <br>
 <a class="btn btn-primary" th:href="@{/}">Trở về trang chủ</a>
 
@@ -79,13 +101,13 @@
         </div>
     </div>
 </div>
-
+<footer th:replace="~{layout::header}"></footer>
 </body>
 <script>
     $(document).ready(function () {
         $('.delete').click(function () {
             let tag = $(this)[0];
-            document.getElementById("delete").href = "/employee/"+tag.id+"/delete";
+            document.getElementById("delete").href = "/employee/" + tag.id + "/delete";
             $("#modelId").modal('show');
         })
     })

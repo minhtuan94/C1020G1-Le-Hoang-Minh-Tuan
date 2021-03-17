@@ -46,4 +46,9 @@ public class ServiceServiceImpl implements ServiceService {
         return serviceRepository.findAllByNameContaining(name, pageable);
     }
 
+    @Override
+    public List<com.example.demo.entity.Service> findAllService() {
+        return serviceRepository.findAll();
+    }
+
 }

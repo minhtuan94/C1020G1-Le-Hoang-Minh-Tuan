@@ -15,7 +15,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" style="margin-left: 150px; font-size: larger" th:href="@{/}">Trang chủ<span
+                <a class="nav-link" style="margin-left: 80px; font-size: larger" th:href="@{/}">Trang chủ<span
                         class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item" style="margin-left: 30px; font-size: larger">
@@ -28,25 +28,14 @@
                 <a class="nav-link" th:href="@{/service/show}">Dịch vụ</a>
             </li>
             <li class="nav-item" style="margin-left: 30px; font-size: larger">
-                <a class="nav-link" href="#">Hợp đồng</a>
+                <a class="nav-link" th:href="@{/contract/show}">Hợp đồng</a>
             </li>
             <li class="nav-item" style="margin-left: 30px; font-size: larger">
-                <a class="nav-link" href="#">Hợp đồng chi tiết</a>
+                <a class="nav-link" th:href="@{contract_detail/show}">Hợp đồng chi tiết</a>
             </li>
-            <!--            <li class="nav-item dropdown">-->
-            <!--                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-            <!--                    Dropdown-->
-            <!--                </a>-->
-            <!--                <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-            <!--                    <a class="dropdown-item" href="#">Action</a>-->
-            <!--                    <a class="dropdown-item" href="#">Another action</a>-->
-            <!--                    <div class="dropdown-divider"></div>-->
-            <!--                    <a class="dropdown-item" href="#">Something else here</a>-->
-            <!--                </div>-->
-            <!--            </li>-->
-            <!--            <li class="nav-item">-->
-            <!--                <a class="nav-link disabled" href="#">Disabled</a>-->
-            <!--            </li>-->
+            <li class="nav-item" style="margin-left: 30px; font-size: larger">
+                <a class="nav-link" th:href="@{contract_detail/show}">Hợp đồng chi tiết</a>
+            </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -110,5 +99,6 @@
         </form>
     </div>
 </div>
+<footer th:replace="layout::footer"></footer>
 </body>
 </html>

@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ContractServiceImpl implements ContractService {
 
@@ -15,7 +17,7 @@ public class ContractServiceImpl implements ContractService {
     private ContractRepository contractRepository;
 
     @Override
-    public Page<Contract> findById(Pageable pageable) {
+    public Page<Contract> findAllContract(Pageable pageable) {
         return contractRepository.findAll(pageable);
     }
 
@@ -32,6 +34,16 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public void delete(Integer id) {
         contractRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Contract> findAllInputText(String name, Pageable pageable) {
+        return contractRepository.findAllByCustomer_Name(name, pageable);
+    }
+
+    @Override
+    public List<Contract> findAllContract() {
+        return contractRepository.findAll();
     }
 
 }

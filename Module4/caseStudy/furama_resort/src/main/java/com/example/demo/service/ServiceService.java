@@ -11,4 +11,5 @@ public interface ServiceService {
     void save(Service service);
     void delete(Integer id);
     Page<Service> findAllInputText(String name, Pageable pageable);
+    List<Service> findAllService();
 }

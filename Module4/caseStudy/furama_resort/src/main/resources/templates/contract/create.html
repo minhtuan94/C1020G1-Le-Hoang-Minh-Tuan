@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout::header}">
+    <meta charset="UTF-8">
+    <title>hợp đồng</title>
+</head>
+<body>
+<h1>Tạo mới hợp đồng</h1>
+<form th:action="@{/contract/save}" method="post" th:object="${con}">
+
+    <div class="form-group">
+        <label class="font-weight-bold">STT</label>
+        <input type="text" th:field="*{id}" class="form-control" disabled aria-describedby="emailHelp"
+               placeholder="Enter content">
+    </div>
+    <div class="form-group">
+        <p class="font-weight-bold">Ngày Bắt đầu</p>
+        <input type="date" th:field="*{start}" class="form-control" aria-describedby="emailHelp"
+               placeholder="Enter content">
+    </div>
+    <div class="form-group">
+        <p class="font-weight-bold">Ngày kết thúc</p>
+        <input type="date" th:field="*{end}" class="form-control" aria-describedby="emailHelp"
+               placeholder="Enter content">
+    </div>
+    <div class="form-group">
+        <p class="font-weight-bold">Số tiền cọc trước</p>
+        <input type="text" th:field="*{deposit}" class="form-control" aria-describedby="emailHelp"
+               placeholder="Enter content">
+    </div>
+    <div class="form-group">
+        <p class="font-weight-bold">Tổng số tiền thanh toán</p>
+        <input type="text" th:field="*{totalMoney}" class="form-control" aria-describedby="emailHelp"
+               placeholder="Enter content">
+    </div>
+
+    <div class="form-group">
+        <p class="font-weight-bold">Nhân viên</p>
+        <select th:field="*{employee}" class="mdb-select md-form" searchable="Search here..">
+            <option th:each="type : ${ems}" th:value="${type.id}" th:text="${type.name}">
+            </option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <p class="font-weight-bold">Khách hàng</p>
+        <select th:field="*{customer}" class="mdb-select md-form" searchable="Search here..">
+            <option value="" disabled selected>Lựa chọn dịch vụ</option>
+            <option th:each="type : ${cus}" th:value="${type.id}" th:text="${type.name}"></option>
+        </select>
+    </div>
+    <button class="bullet-button btn-warning" type="submit">Xong</button>
+</form>
+<script>
+    $(document).ready(function() {
+        $('.mdb-select').materialSelect();
+    });
+</script>
+</body>
+
+</html>

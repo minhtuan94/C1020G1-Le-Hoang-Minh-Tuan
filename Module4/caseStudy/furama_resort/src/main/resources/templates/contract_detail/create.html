@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout::header}">
+    <meta charset="UTF-8">
+    <title>create_customer</title>
+</head>
+<body>
+<h1>Create Customer</h1>
+<form th:action="@{/contract_detail/save}" method="post" th:object="${detail}">
+
+    <div class="form-group">
+        <label class="font-weight-bold">STT</label>
+        <input type="text" th:field="*{id}" class="form-control" disabled aria-describedby="emailHelp"
+               placeholder="Enter content">
+    </div>
+    <div class="form-group">
+        <label class="font-weight-bold">Số lượng</label>
+        <input type="text" th:field="*{quantity}" class="form-control" aria-describedby="emailHelp"
+               placeholder="Enter content">
+    </div>
+    <div class="form-group">
+        <p class="font-weight-bold">Số hợp đồng</p>
+        <select th:field="*{contract}" class="mdb-select md-form" searchable="Search here..">
+            <option th:each="type : ${contracts}" th:value="${type.id}" th:text="${type.id}">
+            </option>
+        </select>
+    </div>
+    <div class="form-group">
+        <p class="font-weight-bold">Dịch vụ đi kèm</p>
+        <select th:field="*{attachService}" class="mdb-select md-form" searchable="Search here..">
+            <option th:each="type : ${attach}" th:value="${type.id}" th:text="${type.name}">
+            </option>
+        </select>
+    </div>
+
+    <button class="bullet-button btn-warning" type="submit">Xong</button>
+</form>
+</body>
+</html>

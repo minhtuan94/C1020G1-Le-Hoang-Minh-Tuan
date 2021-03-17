@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Employee {
@@ -42,7 +43,18 @@ public class Employee {
     @JoinColumn(name = "division_id", nullable = false)
     private Division division;
 
+    @OneToMany(mappedBy = "employee")
+    private List<Contract> contract;
+
     public Employee() {
+    }
+
+    public List<Contract> getContract() {
+        return contract;
+    }
+
+    public void setContract(List<Contract> contract) {
+        this.contract = contract;
     }
 
     public Integer getId() {

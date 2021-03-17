@@ -23,21 +23,27 @@ public class CustomerController {
     private CustomerService customerService;
     @Autowired
     private CustomerTypeService customerTypeService;
+
     @ModelAttribute("customerTypes")
-    public List<CustomerType> customerTypesList(){
+    public List<CustomerType> customerTypesList() {
         return customerTypeService.findAllCustomerType();
     }
+
     @GetMapping("/show")
-    public String show(Model model, @RequestParam Optional<String> keyword, @PageableDefault(value = 5) Pageable pageable) {
-        String keywordOld = "";
+    public String show(Model model, @PageableDefault(value = 3) Pageable pageable) {
+        model.addAttribute("customerList", customerService.findAllCustomer(pageable));
+        model.addAttribute("typesList", customerTypeService.findAllCustomerType());
+        return "/customer/show";
+    }
+
+    @GetMapping("/search")
+    public String listCustomer(Model model, @RequestParam Optional<String> keyword, Pageable pageable) {
         if (!keyword.isPresent()) {
             model.addAttribute("customerList", customerService.findAllCustomer(pageable));
-            model.addAttribute("typesList", customerTypeService.findAllCustomerType());
-            return "/customer/show";
-        }else {
-            keywordOld = keyword.get();
-            model.addAttribute("customer", customerService.findAllInputText(keywordOld, pageable));
-            model.addAttribute("keywordOld", keywordOld);
+            return "customer/show";
+        } else {
+            String keywordOld = keyword.get();
+            model.addAttribute("customerList", customerService.findAllInputText(keywordOld, pageable));
             return "customer/show";
         }
     }
@@ -45,7 +51,7 @@ public class CustomerController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("customer", new Customer());
-        model.addAttribute("types",customerTypeService.findAllCustomerType());
+        model.addAttribute("types", customerTypeService.findAllCustomerType());
         return "/customer/create";
     }
 
@@ -56,26 +62,26 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(Model model,@PathVariable Integer id){
-        model.addAttribute("editCus",customerService.findById(id));
+    public String edit(Model model, @PathVariable Integer id) {
+        model.addAttribute("editCus", customerService.findById(id));
         return "/customer/edit";
     }
 
     @PostMapping("/edit")
-    public String edit(Customer customer,RedirectAttributes redirectAttributes){
+    public String edit(Customer customer, RedirectAttributes redirectAttributes) {
         customerService.save(customer);
         return "redirect:/customer/show";
     }
 
     @GetMapping("/{id}/delete")
-    public String delete(@PathVariable Integer id){
+    public String delete(@PathVariable Integer id) {
         customerService.delete(id);
         return "redirect:/customer/show";
     }
 
     @GetMapping("/{id}/view")
     public String view(@PathVariable Integer id, Model model) {
-        model.addAttribute( "customerView", customerService.findById( id ) );
+        model.addAttribute("customerView", customerService.findById(id));
         return "/customer/view";
     }
 }

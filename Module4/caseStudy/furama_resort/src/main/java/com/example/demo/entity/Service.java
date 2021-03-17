@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "service")
@@ -42,6 +43,8 @@ public class Service {
     @JoinColumn(name = "service_type_id", referencedColumnName = "service_type_id", nullable = false)
     private ServiceType serviceType;
 
+    @OneToMany(mappedBy = "service")
+    private List<Contract> contract;
     public Service() {
     }
 
