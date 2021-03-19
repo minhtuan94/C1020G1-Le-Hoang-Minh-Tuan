@@ -5,6 +5,7 @@
     <title>create_customer</title>
 </head>
 <body>
+<div class="container">
 <h1>Create Customer</h1>
 <form th:action="@{/contract_detail/save}" method="post" th:object="${detail}">
 
@@ -35,5 +36,6 @@
 
     <button class="bullet-button btn-warning" type="submit">Xong</button>
 </form>
+</div>
 </body>
 </html>

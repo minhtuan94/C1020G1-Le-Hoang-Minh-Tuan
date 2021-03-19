@@ -50,4 +50,9 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> search() {
         return customerRepository.findAll();
     }
+
+    @Override
+    public boolean checkCustomerCode(String code) {
+        return customerRepository.findCustomerByCode( code ) == null;
+    }
 }

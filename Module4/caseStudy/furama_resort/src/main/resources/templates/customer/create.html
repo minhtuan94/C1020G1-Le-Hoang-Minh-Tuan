@@ -5,58 +5,71 @@
     <title>create_customer</title>
 </head>
 <body>
-<h1>Create Customer</h1>
-<form th:action="@{/customer/save}" method="post" th:object="${customer}">
 
-    <div class="form-group">
-        <label>STT</label>
-        <input type="text" th:field="*{id}" class="form-control" disabled aria-describedby="emailHelp"
-               placeholder="Enter content">
-    </div>
-    <div class="form-group">
-        <label>ID Loại Khách</label>
-        <select th:field="*{customerType}">
-            <option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}">
-            </option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Tên</label>
-        <input type="text" th:field="*{name}" class="form-control" aria-describedby="emailHelp"
-               placeholder="Enter content">
-    </div>
-    <div class="form-group">
-        <label>Ngày sinh</label>
-        <input type="date" th:field="*{birthday}" class="form-control" aria-describedby="emailHelp"
-               placeholder="Enter content">
-    </div>
-    <div class="form-group">
-        <label >Giới tính<span>*</span></label>
-        <input type="radio"  th:field="*{gender}" value="Male"> Male
-        <input type="radio"  th:field="*{gender}"  value="Female"> Female
-        <input type="radio"  th:field="*{gender}"  value="Other"> Other
-    </div>
-    <div class="form-group">
-        <label>CMND</label>
-        <input type="text" th:field="*{idCard}" class="form-control" aria-describedby="emailHelp"
-               placeholder="Enter content">
-    </div>
-    <div class="form-group">
-        <label>Số điện thoại</label>
-        <input type="text" th:field="*{phone}" class="form-control" aria-describedby="emailHelp"
-               placeholder="Enter content">
-    </div>
-    <div class="form-group">
-        <label>Email</label>
-        <input type="text" th:field="*{email}" class="form-control" aria-describedby="emailHelp"
-               placeholder="Enter content">
-    </div>
-    <div class="form-group">
-        <label>Địa chỉ</label>
-        <input type="text" th:field="*{address}" class="form-control" aria-describedby="emailHelp"
-               placeholder="Enter content">
-    </div>
-    <button class="bullet-button btn-warning" type="submit">Xong</button>
-</form>
+<div class="container">
+    <h1>Create Customer</h1>
+    <form th:action="@{/customer/save}" method="post" th:object="${customer}">
+
+        <div class="form-group">
+            <label>STT</label>
+            <input type="text" th:field="*{id}" class="form-control" disabled aria-describedby="emailHelp"
+                   placeholder="Enter content">
+        </div>
+        <div class="form-group">
+            <label>Mã khách hàng</label>
+            <input type="text" th:field="*{code}" class="form-control" aria-describedby="emailHelp"
+                   placeholder="Enter content">
+            <p class="text-danger" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></p>
+        </div>
+        <div class="form-group">
+            <label>Loại Khách</label>
+            <select th:field="*{customerType}" class="form-control"  >
+                <option th:each="type : ${customerTypes}" th:value="${type.id}" th:text="${type.name}">
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Tên</label>
+            <input type="text" th:field="*{name}" class="form-control" aria-describedby="emailHelp"
+                   placeholder="Enter content">
+        </div>
+        <div class="form-group">
+            <label>Ngày sinh</label>
+            <input type="date" th:field="*{birthday}" class="form-control" aria-describedby="emailHelp"
+                   placeholder="Enter content">
+        </div>
+        <div class="form-group">
+            <label>Giới tính<span>*</span></label>
+            <input type="radio" th:field="*{gender}" value="Male"> Male
+            <input type="radio" th:field="*{gender}" value="Female"> Female
+            <input type="radio" th:field="*{gender}" value="Other"> Other
+        </div>
+        <div class="form-group">
+            <label>CMND</label>
+            <input type="text" th:field="*{idCard}" class="form-control" aria-describedby="emailHelp"
+                   placeholder="Enter content">
+            <p class="text-danger" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}"></p>
+        </div>
+        <div class="form-group">
+            <label>Số điện thoại</label>
+            <input type="text" th:field="*{phone}" class="form-control" aria-describedby="emailHelp"
+                   placeholder="Enter content">
+            <p class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" th:field="*{email}" class="form-control" aria-describedby="emailHelp"
+                   placeholder="Enter content">
+            <p class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+
+        </div>
+        <div class="form-group">
+            <label>Địa chỉ</label>
+            <input type="text" th:field="*{address}" class="form-control" aria-describedby="emailHelp"
+                   placeholder="Enter content">
+        </div>
+        <button class="btn btn-outline-primary" type="submit">Xong</button>
+    </form>
+</div>
 </body>
 </html>

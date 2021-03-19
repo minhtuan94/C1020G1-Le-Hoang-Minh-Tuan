@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+<div class="container">
 <form th:object="${emView}" style="margin-left: 30px">
     <div class="form-group">
         <label for="formId">Id: </label>
@@ -50,9 +51,10 @@
         <label for="formDiscount">Bộ phận: </label>
         <input class="form-control" id="division" readonly th:field="*{division.name}">
     </div>
-    <a th:href="@{/customer/show}" style="margin-left: 30px" class="btn btn-secondary" role="button">Close
+    <a th:href="@{/employee/show}" style="margin-left: 30px" class="btn btn-secondary" role="button">Close
     </a>
 </form>
+</div>
 <footer th:replace="~{layout::header}"></footer>
 </body>
 </html>

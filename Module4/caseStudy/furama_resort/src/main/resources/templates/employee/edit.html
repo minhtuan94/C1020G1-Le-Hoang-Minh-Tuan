@@ -5,10 +5,10 @@
     <title>edit_customer</title>
 </head>
 <body>
+<div class="container">
 <h1>Chỉnh sửa thông tin</h1>
-<form method="post" th:action="@{/employee/save}" th:object="${editEm}" >
+<form method="post" th:action="@{/employee/edit}" th:object="${editEm}" >
     <input type="hidden" th:field="*{id}">
-    </div>
     <div class="form-group">
         <label>Tên</label>
         <input type="text" th:field="*{name}" class="form-control" aria-describedby="emailHelp"
@@ -23,6 +23,7 @@
         <label>CMND</label>
         <input type="text" th:field="*{idCard}" class="form-control" aria-describedby="emailHelp"
                placeholder="Enter content">
+        <p class="text-danger" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}"></p>
     </div>
     <div class="form-group">
         <label>Lương</label>
@@ -33,16 +34,19 @@
         <label>Số điện thoại</label>
         <input type="text" th:field="*{phone}" class="form-control" aria-describedby="emailHelp"
                placeholder="Enter content">
+        <p class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
     </div>
     <div class="form-group">
         <label>Email</label>
         <input type="text" th:field="*{email}" class="form-control" aria-describedby="emailHelp"
                placeholder="Enter content">
+        <p class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
     </div>
     <div class="form-group">
         <label>Địa chỉ</label>
         <input type="text" th:field="*{address}" class="form-control" aria-describedby="emailHelp"
                placeholder="Enter content">
+        <p class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
     </div>
     <div class="form-group">
         <label>Vị trí</label>
@@ -67,6 +71,7 @@
     </div>
     <button class="bullet-button btn-warning" type="submit">Xong</button>
 </form>
+</div>
 <footer th:replace="~{layout::header}"></footer>
 </body>
 </html>

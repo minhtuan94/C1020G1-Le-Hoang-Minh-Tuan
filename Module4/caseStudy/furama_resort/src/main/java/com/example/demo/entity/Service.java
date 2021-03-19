@@ -1,6 +1,9 @@
 package com.example.demo.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
@@ -10,6 +13,11 @@ public class Service {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "service_id")
     private Integer id;
+
+    @NotEmpty(message = "Mã dịch vụ không được trống")
+    @Pattern(regexp = "(DV-)[0-9]{4}", message = "Mã dịch vụ có định dạng là DV-XXXX (X là số từ 0-9)")
+    @Column(name = "service_code", nullable = false)
+    private String code;
 
     @Column(name = "service_name", length = 45, nullable = false)
     private String name;
@@ -46,6 +54,22 @@ public class Service {
     @OneToMany(mappedBy = "service")
     private List<Contract> contract;
     public Service() {
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public List<Contract> getContract() {
+        return contract;
+    }
+
+    public void setContract(List<Contract> contract) {
+        this.contract = contract;
     }
 
     public Integer getId() {

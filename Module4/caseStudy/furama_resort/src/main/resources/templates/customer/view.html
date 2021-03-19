@@ -5,13 +5,18 @@
     <title>Title</title>
 </head>
 <body>
+<div class="container">
 <form th:object="${customerView}" style="margin-left: 30px">
     <div class="form-group">
         <label for="formId">Id: </label>
         <input type="text" class="form-control" id="formId" readonly th:field="*{id}">
     </div>
     <div class="form-group">
-        <label for="formId">Id Loại Khách: </label>
+        <label for="formId">Mã khách hàng: </label>
+        <input type="text" class="form-control" readonly th:field="*{code}">
+    </div>
+    <div class="form-group">
+        <label for="formId">Loại Khách: </label>
         <input type="text" class="form-control" id="formLId" readonly th:field="*{customerType.name}">
     </div>
     <div class="form-group">
@@ -45,5 +50,6 @@
     <a th:href="@{/customer/show}" style="margin-left: 30px" class="btn btn-secondary" role="button">Close
     </a>
 </form>
+</div>
 </body>
 </html>

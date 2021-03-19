@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Customer;
+import com.example.demo.entity.CustomerType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,4 +15,5 @@ public interface CustomerService {
     Page<Customer> findAllInputText(String name, Pageable pageable);
     List<Customer> findAllCustomer();
     List<Customer> search();
+    boolean checkCustomerCode(String code);
 }

@@ -5,6 +5,7 @@
     <title>hợp đồng</title>
 </head>
 <body>
+<div class="container">
 <h1>Tạo mới hợp đồng</h1>
 <form th:action="@{/contract/save}" method="post" th:object="${con}">
 
@@ -56,6 +57,7 @@
         $('.mdb-select').materialSelect();
     });
 </script>
+</div>
 </body>
 
 </html>
