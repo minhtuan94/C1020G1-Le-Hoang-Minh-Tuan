@@ -9,6 +9,6 @@ public class _03_exchange_money {
         System.out.print("nhập vào số tiền cần chuyển: ");
         double usd = scanner.nextDouble();
         double vnd = 23000*usd;
-        System.out.print("Giá trị tiền sao khi đổi: "+vnd);
+        System.out.print("Giá trị tiền sau khi đổi: "+vnd);
     }
 }
